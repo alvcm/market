@@ -5,6 +5,7 @@ import com.alvaro.market.domain.repository.ProductRepository;
 import com.alvaro.market.persistence.crud.ProductoCrudRepository;
 import com.alvaro.market.persistence.entity.Producto;
 import com.alvaro.market.persistence.mapper.ProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +14,10 @@ import java.util.Optional;
 //Con la anotacion @Repository le indicamos a spring que va a interactuar con la bd
 @Repository
 public class ProductoRepository implements ProductRepository {
+    @Autowired
     private ProductoCrudRepository productoCrudRepository;
+
+    @Autowired
     private ProductMapper mapper;
 
     @Override
@@ -35,7 +39,7 @@ public class ProductoRepository implements ProductRepository {
     }
 
     @Override
-    public Optional<Product> getProducto(int productId) {
+    public Optional<Product> getProduct(int productId) {
         return productoCrudRepository.findById(productId).map(producto -> mapper.toProduct(producto));
     }
 
