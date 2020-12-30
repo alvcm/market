@@ -16,6 +16,7 @@ public interface CategoryMapper {
     })
     Category toCategory(Categoria categoria);
 
+    //Le indica a mapstruct que haga la operacion inversa de category a categoria
     @InheritInverseConfiguration
     @Mapping(target = "productos", ignore = true)
     Categoria toCategoria(Category category);

@@ -8,14 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//Controlador de una api rest
 @RestController
+//En que path recibira las peticiones
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
     @GetMapping("/all")
+    //Responseentity es para los estados http
     public ResponseEntity<List<Product>> getAll() {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
