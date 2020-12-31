@@ -2,6 +2,9 @@ package com.alvaro.market.web.controller;
 
 import com.alvaro.market.domain.Purchase;
 import com.alvaro.market.domain.service.PurchaseService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +20,18 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     @GetMapping("/all")
+    @ApiOperation("Get all supermarket purchases")
+    @ApiResponse(code = 200, message = "OK")
     public ResponseEntity<List<Purchase>> getAll() {
         return new ResponseEntity<>(purchaseService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/client/{id}")
+    @ApiOperation("Search for a client's purchases")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Purchase not found")
+    })
     public ResponseEntity<List<Purchase>> getPurchase(@PathVariable("id") String clientId) {
         return purchaseService.getPurchase(clientId)
                 .map(purchases -> new ResponseEntity<>(purchases, HttpStatus.OK))
